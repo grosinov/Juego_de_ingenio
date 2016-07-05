@@ -169,6 +169,7 @@ public class FirstFragment extends Fragment implements View.OnClickListener{
         j = new Jugadas(ma.getUserName(), clicks, clickeados);
         jugadas.add(j);
         ma.setLista(jugadas);
+        Insert();
         clicks = 0;
         clickeados = "";
     }

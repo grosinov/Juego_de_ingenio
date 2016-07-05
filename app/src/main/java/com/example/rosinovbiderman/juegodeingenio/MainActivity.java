@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         inicializarTabs(); // Crear los tabs
         listjugadas = new ArrayList<Jugadas>();
 
-        /*if(baseDeDatosAbierta() == true){
+        if(baseDeDatosAbierta() == true){
             Cursor conjuntoDeRegistros;
             conjuntoDeRegistros = baseDatos.rawQuery("select Nombre, Clicks, Clickeados from Jugadas", null);
 
@@ -66,10 +66,8 @@ public class MainActivity extends AppCompatActivity {
                     listjugadas.add(j);
 
                 } while (conjuntoDeRegistros.moveToNext() == true);
-            } else {
-                Log.d("")
             }
-        }*/
+        }
     }
 
     private void inicializarToolbar() {

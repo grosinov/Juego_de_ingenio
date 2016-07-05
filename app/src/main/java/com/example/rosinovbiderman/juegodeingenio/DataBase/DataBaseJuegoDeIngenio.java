@@ -13,9 +13,8 @@ public class DataBaseJuegoDeIngenio extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        Log.d("SQLite", "Lolazo panini");
         String sqlCrearTabla;
-        sqlCrearTabla = "create table jugadas (Nombre text, Clicks integer, Clieckeados text)";
+        sqlCrearTabla = "create table Jugadas (Nombre text, Clicks integer, Clickeados text)";
 
         sqLiteDatabase.execSQL(sqlCrearTabla);
     }

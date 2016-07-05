@@ -82,9 +82,9 @@ public class SecondFragment extends Fragment {
                 jugadas.clear();
                 adapter.notifyDataSetChanged();
 
-                /*if(ma.baseDeDatosAbierta() == true){
+                if(ma.baseDeDatosAbierta() == true){
                     ma.getBaseDatos().delete("Jugadas", "", null);
-                }*/
+                }
 
                 dialog.cancel();
             }
