@@ -1,4 +1,4 @@
-package com.example.rosinovbiderman.juegodeingenio;
+package com.example.rosinovbiderman.juegodeingenio.Fragments;
 
 
 import android.app.Dialog;
@@ -13,6 +13,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+
+import com.example.rosinovbiderman.juegodeingenio.Jugadas;
+import com.example.rosinovbiderman.juegodeingenio.MainActivity;
+import com.example.rosinovbiderman.juegodeingenio.R;
+import com.example.rosinovbiderman.juegodeingenio.jugadasAdapter;
 
 import java.util.ArrayList;
 
@@ -76,6 +81,11 @@ public class SecondFragment extends Fragment {
             public void onClick(DialogInterface dialog, int which) {
                 jugadas.clear();
                 adapter.notifyDataSetChanged();
+
+                /*if(ma.baseDeDatosAbierta() == true){
+                    ma.getBaseDatos().delete("Jugadas", "", null);
+                }*/
+
                 dialog.cancel();
             }
         });

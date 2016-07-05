@@ -1,8 +1,10 @@
-package com.example.rosinovbiderman.juegodeingenio;
+package com.example.rosinovbiderman.juegodeingenio.Fragments;
 
 
 import android.app.Dialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,6 +17,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.example.rosinovbiderman.juegodeingenio.DataBase.DataBaseJuegoDeIngenio;
+import com.example.rosinovbiderman.juegodeingenio.GameButtons;
+import com.example.rosinovbiderman.juegodeingenio.Jugadas;
+import com.example.rosinovbiderman.juegodeingenio.MainActivity;
+import com.example.rosinovbiderman.juegodeingenio.R;
 
 import java.util.ArrayList;
 
@@ -225,5 +233,19 @@ public class FirstFragment extends Fragment implements View.OnClickListener{
         b9.refresh();
         clicks = 0;
         clickeados = "";
+    }
+
+    public void Insert(){
+        if(ma.baseDeDatosAbierta()){
+            ContentValues nuevoRegistro;
+
+            nuevoRegistro = new ContentValues();
+            nuevoRegistro.put("Nombre", ma.getUserName());
+            nuevoRegistro.put("Clicks", clicks);
+            nuevoRegistro.put("Clickeados", clickeados);
+
+            ma.getBaseDatos().insert("Jugadas", null, nuevoRegistro);
+
+            ma.getBaseDatos().close();}
     }
 }

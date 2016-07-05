@@ -1,9 +1,10 @@
 package com.example.rosinovbiderman.juegodeingenio;
 
 import android.app.Dialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Color;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
@@ -16,20 +17,28 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Switch;
-import android.widget.TextClock;
 import android.widget.TextView;
 
+import com.example.rosinovbiderman.juegodeingenio.DataBase.DataBaseJuegoDeIngenio;
+import com.example.rosinovbiderman.juegodeingenio.Fragments.FirstFragment;
+import com.example.rosinovbiderman.juegodeingenio.Fragments.SecondFragment;
+
 import java.util.ArrayList;
+
+import dalvik.system.BaseDexClassLoader;
 
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private FragmentTabHost tabHost;
-    private String userName="";
-    private String fondo="";
+    private String userName = "";
+    private String fondo = "";
     private TextView navUserName;
     ArrayList<Jugadas> listjugadas;
+    Jugadas j;
+
+    DataBaseJuegoDeIngenio accesoBase;
+    SQLiteDatabase baseDatos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +49,27 @@ public class MainActivity extends AppCompatActivity {
         inicializarToolbar(); // Setear Toolbar como action bar
         inicializarTabs(); // Crear los tabs
         listjugadas = new ArrayList<Jugadas>();
+
+        /*if(baseDeDatosAbierta() == true){
+            Cursor conjuntoDeRegistros;
+            conjuntoDeRegistros = baseDatos.rawQuery("select Nombre, Clicks, Clickeados from Jugadas", null);
+
+            if(conjuntoDeRegistros.moveToFirst() == true){
+                int cantRegistros = 0;
+                do {
+                    cantRegistros++;
+
+                    String Nombre  = conjuntoDeRegistros.getString(0);
+                    int Clicks = conjuntoDeRegistros.getInt(1);
+                    String Clickeados = conjuntoDeRegistros.getString(2);
+                    j = new Jugadas(Nombre, Clicks, Clickeados);
+                    listjugadas.add(j);
+
+                } while (conjuntoDeRegistros.moveToNext() == true);
+            } else {
+                Log.d("")
+            }
+        }*/
     }
 
     private void inicializarToolbar() {
@@ -52,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         setearListener(navigationView);
-        navUserName = (TextView)navigationView.getHeaderView(0).findViewById(R.id.nav_iniciarsesion);
+        navUserName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_iniciarsesion);
 
     }
 
@@ -74,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
                 item.setChecked(true);
-                switch(item.getItemId()) {
+                switch (item.getItemId()) {
                     case R.id.nav_fondo:
                         elegirColor().show();
                         break;
@@ -98,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
         builder.setItems(items, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
                 Log.i("Dialogos", "Opción elegida: " + items[item]);
-                switch (item){
+                switch (item) {
                     case 0:
                         tabHost.getTabContentView().getChildAt(0).setBackgroundColor(getResources().getColor(R.color.Rojo));
                         break;
@@ -131,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void setUserName (String userName) {
+    public void setUserName(String userName) {
         this.userName = userName;  // Setear variable de clase
         navUserName.setText(userName); // Setear el texto en la cabecera del drawer
     }
@@ -140,9 +170,29 @@ public class MainActivity extends AppCompatActivity {
         return userName;
     }
 
-    public ArrayList<Jugadas> getLista(){ return listjugadas; }
+    public ArrayList<Jugadas> getLista() {
+        return listjugadas;
+    }
 
-    public void setLista(ArrayList<Jugadas> jugadas){
+    public void setLista(ArrayList<Jugadas> jugadas) {
         listjugadas = jugadas;
+    }
+
+    public SQLiteDatabase getBaseDatos() { return baseDatos; }
+
+    public boolean baseDeDatosAbierta() {
+        Boolean responder;
+
+        accesoBase = new DataBaseJuegoDeIngenio(this, "baseJdI", null, 1);
+        baseDatos = accesoBase.getWritableDatabase();
+        if (baseDatos != null) {
+            Log.d("SQLite", "La base de datos se abrio");
+            responder = true;
+        } else {
+            Log.d("SQLite", "La base de datos se NO abrio");
+            responder = false;
+        }
+
+        return responder;
     }
 }
