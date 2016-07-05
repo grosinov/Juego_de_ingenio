@@ -2,8 +2,8 @@
     <menu xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_delete"
             android:icon="@drawable/ic_delete_black_24dp"
-            android:title="Gallery"
+            android:title="Delete"
             app:showAsAction="always"/>
     </menu>

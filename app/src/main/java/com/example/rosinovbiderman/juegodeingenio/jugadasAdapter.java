@@ -54,5 +54,4 @@ public class jugadasAdapter extends BaseAdapter {
 
         return view;
     }
-
 }

@@ -1,17 +1,22 @@
 package com.example.rosinovbiderman.juegodeingenio;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Switch;
 import android.widget.TextClock;
 import android.widget.TextView;
 
@@ -71,15 +76,11 @@ public class MainActivity extends AppCompatActivity {
                 item.setChecked(true);
                 switch(item.getItemId()) {
                     case R.id.nav_fondo:
-                        Log.d("Choose:","Elegir fondo");
-                        FragmentManager fm = getSupportFragmentManager();
-                        UserNameDialog userNameDialog = new UserNameDialog();
-                        userNameDialog.show(fm, "fragment_edit_name");
+                        elegirColor().show();
                         break;
                     case R.id.nav_iniciarsesion:
-                        Log.d("Choose:","Iniciar Sesion");
-                        fm = getSupportFragmentManager();
-                        userNameDialog = new UserNameDialog();
+                        FragmentManager fm = getSupportFragmentManager();
+                        UserNameDialog userNameDialog = new UserNameDialog();
                         userNameDialog.show(fm, "fragment_edit_name");
                         break;
                 }
@@ -88,11 +89,38 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
     }
 
+    public Dialog elegirColor() {
+        final String[] items = {"Rojo", "Azul", "Verde", "Amarillo", "Naranja"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Elija un color de fondo");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                Log.i("Dialogos", "Opción elegida: " + items[item]);
+                switch (item){
+                    case 0:
+                        tabHost.getTabContentView().getChildAt(0).setBackgroundColor(getResources().getColor(R.color.Rojo));
+                        break;
+                    case 1:
+                        tabHost.getTabContentView().getChildAt(0).setBackgroundColor(getResources().getColor(R.color.Azul));
+                        break;
+                    case 2:
+                        tabHost.getTabContentView().getChildAt(0).setBackgroundColor(getResources().getColor(R.color.Verde));
+                        break;
+                    case 3:
+                        tabHost.getTabContentView().getChildAt(0).setBackgroundColor(getResources().getColor(R.color.Amarillo));
+                        break;
+                    case 4:
+                        tabHost.getTabContentView().getChildAt(0).setBackgroundColor(getResources().getColor(R.color.Naranja));
+                        break;
+                }
+            }
+        });
 
-    // Abre el drawer al clickear el burger
+        return builder.create();
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -108,17 +136,13 @@ public class MainActivity extends AppCompatActivity {
         navUserName.setText(userName); // Setear el texto en la cabecera del drawer
     }
 
-    public void setFondo (String fondo){
-        this.fondo = fondo;
-    }
-
     public String getUserName() {
         return userName;
     }
 
-    public ArrayList<Jugadas> setLista(){ return listjugadas; }
+    public ArrayList<Jugadas> getLista(){ return listjugadas; }
 
-    public void getLista (ArrayList<Jugadas> jugadas){
+    public void setLista(ArrayList<Jugadas> jugadas){
         listjugadas = jugadas;
     }
 }

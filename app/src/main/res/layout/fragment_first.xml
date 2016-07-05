@@ -13,18 +13,21 @@
         <com.example.rosinovbiderman.juegodeingenio.GameButtons
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_margin="10dp"
             android:layout_weight="1"
             android:id="@+id/ib1" />
 
         <com.example.rosinovbiderman.juegodeingenio.GameButtons
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_margin="10dp"
             android:layout_weight="1"
             android:id="@+id/ib2" />
 
         <com.example.rosinovbiderman.juegodeingenio.GameButtons
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_margin="10dp"
             android:layout_weight="1"
             android:id="@+id/ib3" />
 
@@ -39,18 +42,21 @@
         <com.example.rosinovbiderman.juegodeingenio.GameButtons
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+            android:layout_margin="10dp"
             android:layout_weight="1"
         android:id="@+id/ib4" />
 
         <com.example.rosinovbiderman.juegodeingenio.GameButtons
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_margin="10dp"
             android:layout_weight="1"
             android:id="@+id/ib5" />
 
         <com.example.rosinovbiderman.juegodeingenio.GameButtons
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_margin="10dp"
             android:layout_weight="1"
             android:id="@+id/ib6" />
 
@@ -65,18 +71,21 @@
         <com.example.rosinovbiderman.juegodeingenio.GameButtons
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+            android:layout_margin="10dp"
             android:layout_weight="1"
         android:id="@+id/ib7" />
 
         <com.example.rosinovbiderman.juegodeingenio.GameButtons
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_margin="10dp"
             android:layout_weight="1"
             android:id="@+id/ib8" />
 
         <com.example.rosinovbiderman.juegodeingenio.GameButtons
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_margin="10dp"
             android:layout_weight="1"
             android:id="@+id/ib9" />
 

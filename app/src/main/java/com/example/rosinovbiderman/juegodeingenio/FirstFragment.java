@@ -1,9 +1,12 @@
 package com.example.rosinovbiderman.juegodeingenio;
 
 
-import android.content.Intent;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -11,8 +14,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.MultiAutoCompleteTextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -26,12 +27,15 @@ public class FirstFragment extends Fragment implements View.OnClickListener{
 
     GameButtons b1, b2, b3, b4, b5, b6, b7, b8, b9;
     public int clicks = 0;
-    String clickeados;
+    String clickeados = "";
     MainActivity ma;
     ArrayList<Jugadas> jugadas;
+    Jugadas j;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        jugadas = new ArrayList<Jugadas>();
     }
 
     @Override
@@ -39,7 +43,7 @@ public class FirstFragment extends Fragment implements View.OnClickListener{
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         View v = inflater.inflate(R.layout.fragment_first, container, false);
-        jugadas = new ArrayList<Jugadas>();
+
         b1 = (GameButtons) v.findViewById(R.id.ib1);
         b2 = (GameButtons) v.findViewById(R.id.ib2);
         b3 = (GameButtons) v.findViewById(R.id.ib3);
@@ -142,42 +146,84 @@ public class FirstFragment extends Fragment implements View.OnClickListener{
                 break;
         }
         if(b1.getPrendido() && b2.getPrendido() && b3.getPrendido() && b4.getPrendido() && b5.getPrendido() && b6.getPrendido() && b7.getPrendido() && b8.getPrendido() && b9.getPrendido()){
-            Toast toast = Toast.makeText(this.getContext(), "Ganaste!", Toast.LENGTH_SHORT);
-            toast.show();
             listar();
+            ReinicioAlGanar().show();
         } else {
             if(!b1.getPrendido() && !b2.getPrendido() && !b3.getPrendido() && !b4.getPrendido() && !b5.getPrendido() && !b6.getPrendido() && !b7.getPrendido() && !b8.getPrendido() && !b9.getPrendido()){
-                Toast toast = Toast.makeText(this.getContext(), "Ganaste!", Toast.LENGTH_SHORT);
-                toast.show();
                 listar();
+                ReinicioAlGanar().show();
             }
         }
     }
 
     public void listar(){
         ma = (MainActivity)getActivity();
-        Jugadas j = new Jugadas(ma.getUserName(), clicks, clickeados);
+        j = new Jugadas(ma.getUserName(), clicks, clickeados);
         jugadas.add(j);
-        ma.getLista(jugadas);
+        ma.setLista(jugadas);
+        clicks = 0;
+        clickeados = "";
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_refresh:
-                b1.refresh();
-                b2.refresh();
-                b3.refresh();
-                b4.refresh();
-                b5.refresh();
-                b6.refresh();
-                b7.refresh();
-                b8.refresh();
-                b9.refresh();
-                clicks = 0;
-                clickeados = "";
+                Reiniciar();
+                b1.setEnabled(true);
+                b2.setEnabled(true);
+                b3.setEnabled(true);
+                b4.setEnabled(true);
+                b5.setEnabled(true);
+                b6.setEnabled(true);
+                b7.setEnabled(true);
+                b8.setEnabled(true);
+                b9.setEnabled(true);
                 break;
         }
         return true;
+    }
+
+    private Dialog ReinicioAlGanar(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
+        builder.setTitle("Ha Ganado!");
+        builder.setMessage("¿Desearia jugar una nueva paritda?");
+        builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                Reiniciar();
+                dialog.cancel();
+            }
+        });
+
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                b1.setEnabled(false);
+                b2.setEnabled(false);
+                b3.setEnabled(false);
+                b4.setEnabled(false);
+                b5.setEnabled(false);
+                b6.setEnabled(false);
+                b7.setEnabled(false);
+                b8.setEnabled(false);
+                b9.setEnabled(false);
+                dialog.cancel();
+            }
+        });
+
+        return builder.create();
+    }
+
+    public void Reiniciar(){
+        b1.refresh();
+        b2.refresh();
+        b3.refresh();
+        b4.refresh();
+        b5.refresh();
+        b6.refresh();
+        b7.refresh();
+        b8.refresh();
+        b9.refresh();
+        clicks = 0;
+        clickeados = "";
     }
 }
