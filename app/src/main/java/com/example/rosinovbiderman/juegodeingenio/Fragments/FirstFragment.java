@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -172,6 +173,7 @@ public class FirstFragment extends Fragment implements View.OnClickListener{
         Insert();
         clicks = 0;
         clickeados = "";
+        audio();
     }
 
     @Override
@@ -248,5 +250,10 @@ public class FirstFragment extends Fragment implements View.OnClickListener{
             ma.getBaseDatos().insert("Jugadas", null, nuevoRegistro);
 
             ma.getBaseDatos().close();}
+    }
+
+    public void audio(){
+        MediaPlayer mp = MediaPlayer.create(getActivity().getApplicationContext(), R.raw.ganaste);
+        mp.start();
     }
 }
