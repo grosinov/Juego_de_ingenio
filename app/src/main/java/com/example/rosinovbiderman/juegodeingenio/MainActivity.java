@@ -46,13 +46,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        inicializarToolbar(); // Setear Toolbar como action bar
-        inicializarTabs(); // Crear los tabs
+        inicializarToolbar();
+        inicializarTabs();
         listjugadas = new ArrayList<Jugadas>();
 
         if(baseDeDatosAbierta() == true){
             Cursor conjuntoDeRegistros;
-            conjuntoDeRegistros = baseDatos.rawQuery("select Nombre, Clicks, Clickeados from Jugadas", null);
+            conjuntoDeRegistros = baseDatos.rawQuery("SELECT * FROM Jugadas", null);
 
             if(conjuntoDeRegistros.moveToFirst() == true){
                 int cantRegistros = 0;
@@ -160,8 +160,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;  // Setear variable de clase
-        navUserName.setText(userName); // Setear el texto en la cabecera del drawer
+        this.userName = userName;
+        navUserName.setText(userName);
     }
 
     public String getUserName() {
