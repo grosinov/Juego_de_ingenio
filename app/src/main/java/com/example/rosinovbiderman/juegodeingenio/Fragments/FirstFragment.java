@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -83,6 +84,12 @@ public class FirstFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View view){
+        ma = (MainActivity)getActivity();
+        if(ma.getUserName() == null || ma.getUserName().isEmpty()){
+            Toast toast = Toast.makeText(this.getContext(), "Debe iniciar sesion antes de jugar", Toast.LENGTH_SHORT);
+            toast.show();
+            return;
+        }
         switch (view.getId()) {
             case R.id.ib1:
                 b1.cambiarColor();
@@ -181,15 +188,7 @@ public class FirstFragment extends Fragment implements View.OnClickListener{
         switch (item.getItemId()) {
             case R.id.nav_refresh:
                 Reiniciar();
-                b1.setEnabled(true);
-                b2.setEnabled(true);
-                b3.setEnabled(true);
-                b4.setEnabled(true);
-                b5.setEnabled(true);
-                b6.setEnabled(true);
-                b7.setEnabled(true);
-                b8.setEnabled(true);
-                b9.setEnabled(true);
+                enable();
                 break;
         }
         return true;
@@ -208,15 +207,7 @@ public class FirstFragment extends Fragment implements View.OnClickListener{
 
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                b1.setEnabled(false);
-                b2.setEnabled(false);
-                b3.setEnabled(false);
-                b4.setEnabled(false);
-                b5.setEnabled(false);
-                b6.setEnabled(false);
-                b7.setEnabled(false);
-                b8.setEnabled(false);
-                b9.setEnabled(false);
+                disable();
                 dialog.cancel();
             }
         });
@@ -255,5 +246,29 @@ public class FirstFragment extends Fragment implements View.OnClickListener{
     public void audio(){
         MediaPlayer mp = MediaPlayer.create(getActivity().getApplicationContext(), R.raw.ganaste);
         mp.start();
+    }
+
+    public void disable(){
+        b1.setEnabled(false);
+        b2.setEnabled(false);
+        b3.setEnabled(false);
+        b4.setEnabled(false);
+        b5.setEnabled(false);
+        b6.setEnabled(false);
+        b7.setEnabled(false);
+        b8.setEnabled(false);
+        b9.setEnabled(false);
+    }
+
+    public void enable(){
+        b1.setEnabled(true);
+        b2.setEnabled(true);
+        b3.setEnabled(true);
+        b4.setEnabled(true);
+        b5.setEnabled(true);
+        b6.setEnabled(true);
+        b7.setEnabled(true);
+        b8.setEnabled(true);
+        b9.setEnabled(true);
     }
 }
